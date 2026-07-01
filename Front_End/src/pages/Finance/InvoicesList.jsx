@@ -3,7 +3,7 @@ import Card from '../../components/ui/Card';
 import { C } from '../../theme/colors';
 import { fmt } from '../../utils/formatters';
 
-export default function InvoicesList({ invoices }) {
+export default function InvoicesList({ invoices, onEdit, onDelete }) {
   const getStatusColor = (status) => {
     switch(status) {
       case "Paid": return C.success;
@@ -29,18 +29,19 @@ export default function InvoicesList({ invoices }) {
               <th style={{ padding: "12px 10px", fontWeight: 500 }}>ID / Client</th>
               <th style={{ padding: "12px 10px", fontWeight: 500 }}>Date & Due</th>
               <th style={{ padding: "12px 10px", fontWeight: 500 }}>Amt & Status</th>
+              <th style={{ padding: "12px 10px", fontWeight: 500 }}></th>
             </tr>
           </thead>
           <tbody>
             {invoices.map((inv, idx) => (
-              <tr key={inv.id} style={{ borderBottom: idx === invoices.length - 1 ? "none" : `1px solid ${C.cardBorder}`, transition: "background 0.2s" }} onMouseOver={e=>e.currentTarget.style.background="rgba(255,255,255,0.02)"} onMouseOut={e=>e.currentTarget.style.background="transparent"}>
+              <tr key={inv._id} style={{ borderBottom: idx === invoices.length - 1 ? "none" : `1px solid ${C.cardBorder}`, transition: "background 0.2s" }} onMouseOver={e=>e.currentTarget.style.background="rgba(255,255,255,0.02)"} onMouseOut={e=>e.currentTarget.style.background="transparent"}>
                 <td style={{ padding: "12px 10px" }}>
-                  <div style={{ fontWeight: 600, color: C.text }}>{inv.id}</div>
+                  <div style={{ fontWeight: 600, color: C.text }}>{inv.invoiceNumber}</div>
                   <div style={{ color: C.textMuted, fontSize: "0.8rem", marginTop: 2 }}>{inv.client}</div>
                 </td>
                 <td style={{ padding: "12px 10px", color: C.textDim }}>
-                  <div>Iss: {inv.date}</div>
-                  <div style={{ fontSize: "0.8rem", marginTop: 2 }}>Due: {inv.due}</div>
+                  <div>Iss: {new Date(inv.date || inv.createdAt).toLocaleDateString()}</div>
+                  <div style={{ fontSize: "0.8rem", marginTop: 2 }}>Due: {inv.dueDate ? new Date(inv.dueDate).toLocaleDateString() : "-"}</div>
                 </td>
                 <td style={{ padding: "12px 10px" }}>
                   <div style={{ fontWeight: 600, color: C.text }}>{fmt(inv.amount)}</div>
@@ -56,6 +57,22 @@ export default function InvoicesList({ invoices }) {
                   }}>
                     {inv.status}
                   </span>
+                </td>
+                <td style={{ padding: "12px 10px", whiteSpace: "nowrap" }}>
+                  <button
+                    onClick={() => onEdit && onEdit(inv)}
+                    style={{ background: "transparent", border: "none", color: C.info, cursor: "pointer", fontSize: "0.8rem", fontWeight: 600, marginRight: 10 }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (window.confirm("Delete this invoice?")) onDelete && onDelete(inv._id);
+                    }}
+                    style={{ background: "transparent", border: "none", color: C.danger, cursor: "pointer", fontSize: "0.8rem", fontWeight: 600 }}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

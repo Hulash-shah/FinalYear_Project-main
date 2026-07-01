@@ -3,7 +3,7 @@ import Card from '../../components/ui/Card';
 import { C } from '../../theme/colors';
 import { fmt } from '../../utils/formatters';
 
-export default function ExpensesList({ expenses }) {
+export default function ExpensesList({ expenses, onEdit, onDelete }) {
   const getStatusColor = (status) => {
     switch(status) {
       case "Approved": return C.success;
@@ -29,17 +29,18 @@ export default function ExpensesList({ expenses }) {
               <th style={{ padding: "12px 10px", fontWeight: 500 }}>Category / Desc</th>
               <th style={{ padding: "12px 10px", fontWeight: 500 }}>Date</th>
               <th style={{ padding: "12px 10px", fontWeight: 500 }}>Amount & Status</th>
+              <th style={{ padding: "12px 10px", fontWeight: 500 }}></th>
             </tr>
           </thead>
           <tbody>
             {expenses.map((exp, idx) => (
-              <tr key={exp.id} style={{ borderBottom: idx === expenses.length - 1 ? "none" : `1px solid ${C.cardBorder}`, transition: "background 0.2s" }} onMouseOver={e=>e.currentTarget.style.background="rgba(255,255,255,0.02)"} onMouseOut={e=>e.currentTarget.style.background="transparent"}>
+              <tr key={exp._id} style={{ borderBottom: idx === expenses.length - 1 ? "none" : `1px solid ${C.cardBorder}`, transition: "background 0.2s" }} onMouseOver={e=>e.currentTarget.style.background="rgba(255,255,255,0.02)"} onMouseOut={e=>e.currentTarget.style.background="transparent"}>
                 <td style={{ padding: "12px 10px" }}>
                   <div style={{ fontWeight: 600, color: C.text }}>{exp.category}</div>
                   <div style={{ color: C.textMuted, fontSize: "0.8rem", marginTop: 2 }}>{exp.description}</div>
                 </td>
                 <td style={{ padding: "12px 10px", color: C.textDim }}>
-                  {exp.date}
+                  {new Date(exp.date || exp.createdAt).toLocaleDateString()}
                 </td>
                 <td style={{ padding: "12px 10px" }}>
                   <div style={{ fontWeight: 600, color: C.text }}>{fmt(exp.amount)}</div>
@@ -55,6 +56,22 @@ export default function ExpensesList({ expenses }) {
                   }}>
                     {exp.status}
                   </span>
+                </td>
+                <td style={{ padding: "12px 10px", whiteSpace: "nowrap" }}>
+                  <button
+                    onClick={() => onEdit && onEdit(exp)}
+                    style={{ background: "transparent", border: "none", color: C.info, cursor: "pointer", fontSize: "0.8rem", fontWeight: 600, marginRight: 10 }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (window.confirm("Delete this expense?")) onDelete && onDelete(exp._id);
+                    }}
+                    style={{ background: "transparent", border: "none", color: C.danger, cursor: "pointer", fontSize: "0.8rem", fontWeight: 600 }}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

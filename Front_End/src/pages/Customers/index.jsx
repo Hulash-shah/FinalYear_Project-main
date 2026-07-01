@@ -148,7 +148,7 @@ export default function CustomersPage({  setData }) {
           <p style={{ textAlign: 'center', padding: 40, color: C.textMuted }}>No customers found.</p>
         ) : (
           <Table
-            columns={['Name', 'Email', 'Phone', 'Status', 'Actions']}
+            columns={['Name', 'Email', 'Phone', 'Status', 'Total Spent', 'Invoices', 'Last Purchase', 'Actions']}
             data={customers}
             renderRow={cust => (
               <>
@@ -161,6 +161,13 @@ export default function CustomersPage({  setData }) {
                 <TD style={{ color: C.textMuted }}>{cust.email}</TD>
                 <TD style={{ color: C.textMuted }}>{cust.phone || '—'}</TD>
                 <TD><Badge label={cust.status} color={statusColor(cust.status)} /></TD>
+                <TD style={{ color: C.text, fontWeight: 600 }}>
+                  {cust.totalSpent ? `₹${cust.totalSpent.toLocaleString()}` : '—'}
+                </TD>
+                <TD style={{ color: C.textMuted }}>{cust.invoiceCount || 0}</TD>
+                <TD style={{ color: C.textMuted }}>
+                  {cust.lastPurchase ? new Date(cust.lastPurchase).toLocaleDateString() : '—'}
+                </TD>
                 <TD>
                   <div style={{ display: 'flex', gap: 6 }}>
                     <Btn label="Edit" icon="edit" variant="ghost" size="sm" onClick={() => openEdit(cust)} />

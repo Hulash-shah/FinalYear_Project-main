@@ -11,7 +11,9 @@ import AppShell from './components/layout/AppShell';
 import { useAuth } from './hooks/useAuth';
 import { useAppData } from './hooks/useAppData';
 import { useTheme } from './hooks/useTheme';
-
+import ReportsPage from './pages/Reports/index.jsx';
+   
+   
 export default function App() {
   const { user, setUser, page, setPage, login, register, logout } = useAuth();
   const { data, setData } = useAppData();
@@ -51,12 +53,14 @@ export default function App() {
       {activePage === "store" && <StorePage {...pageProps} />}
       {activePage === "finance" && <FinancePage {...pageProps} />}
       {activePage === "customers" && <CustomersPage {...pageProps} />}
+      {activePage === "reports" && <ReportsPage />}
+{/* 
       {!['dashboard', 'employees', 'settings', 'store', 'finance', 'customers'].includes(activePage) && (
         <div style={{ padding: 40, color: '#888' }}>
           <h2>{activePage.charAt(0).toUpperCase() + activePage.slice(1)} Page Coming Soon</h2>
           <p>This module is currently being refactored into its own component.</p>
         </div>
-      )}
+      )} */}
     </AppShell>
   );
 }

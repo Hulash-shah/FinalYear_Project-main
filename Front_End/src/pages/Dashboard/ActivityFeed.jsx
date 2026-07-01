@@ -2,12 +2,26 @@ import React from 'react';
 import Card from '../../components/ui/Card';
 import { C } from '../../theme/colors';
 
-const ActivityFeed = ({ activities }) => (
+const ActivityFeed = ({ activities, onViewAll }) => (
   <Card>
-    <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.95rem", marginBottom: 14 }}>Recent Activity</h3>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+      <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.95rem" }}>Recent Activity</h3>
+      {onViewAll && activities.length > 0 && (
+        <span
+          onClick={onViewAll}
+          style={{ fontSize: "0.72rem", color: C.accent, cursor: "pointer" }}
+        >
+          View all →
+        </span>
+      )}
+    </div>
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
       {activities.map((a, i) => (
-        <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+        <div
+          key={i}
+          onClick={onViewAll}
+          style={{ display: "flex", gap: 10, alignItems: "flex-start", cursor: onViewAll ? "pointer" : "default" }}
+        >
           <div 
             style={{ 
               width: 7, 
