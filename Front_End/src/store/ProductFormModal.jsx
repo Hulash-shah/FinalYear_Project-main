@@ -112,17 +112,17 @@ export default function ProductFormModal({ category, initialItem, extraFields = 
         <form onSubmit={handleSubmit}>
           <div style={fieldWrap}>
             <label style={labelStyle}>Item Name *</label>
-            <input style={inputStyle} value={form.name} onChange={e => handleChange('name', e.target.value)} />
+            <input style={{ ...inputStyle, color: C.text }} value={form.name} onChange={e => handleChange('name', e.target.value)} />
           </div>
 
           <div style={{ display: "flex", gap: 12, marginBottom: 16 }}>
             <div style={{ flex: 1 }}>
               <label style={labelStyle}>Brand</label>
-              <input style={inputStyle} value={form.brand} onChange={e => handleChange('brand', e.target.value)} />
+              <input style={{ ...inputStyle, color: C.text }} value={form.brand} onChange={e => handleChange('brand', e.target.value)} />
             </div>
             <div style={{ flex: 1 }}>
               <label style={labelStyle}>Size</label>
-              <input style={inputStyle} value={form.size} onChange={e => handleChange('size', e.target.value)} placeholder="e.g. M, 10 US" />
+              <input style={{ ...inputStyle, color: C.text }} value={form.size} onChange={e => handleChange('size', e.target.value)} placeholder="e.g. M, 10 US" />
             </div>
           </div>
 
@@ -130,7 +130,7 @@ export default function ProductFormModal({ category, initialItem, extraFields = 
             <div style={fieldWrap} key={field.key}>
               <label style={labelStyle}>{field.label}</label>
               <input
-                style={inputStyle}
+                style={{ ...inputStyle, color: C.text }}
                 value={form.attributes[field.key] || ''}
                 onChange={e => handleAttributeChange(field.key, e.target.value)}
                 placeholder={field.placeholder || ''}
@@ -141,17 +141,17 @@ export default function ProductFormModal({ category, initialItem, extraFields = 
           <div style={{ display: "flex", gap: 12, marginBottom: 16 }}>
             <div style={{ flex: 1 }}>
               <label style={labelStyle}>Price *</label>
-              <input style={inputStyle} type="number" step="0.01" min="0" value={form.price} onChange={e => handleChange('price', e.target.value)} />
+              <input style={{ ...inputStyle, color: C.text }} type="number" step="0.01" min="0" value={form.price} onChange={e => handleChange('price', e.target.value)} />
             </div>
             <div style={{ flex: 1 }}>
               <label style={labelStyle}>Stock</label>
-              <input style={inputStyle} type="number" min="0" value={form.stock} onChange={e => handleChange('stock', e.target.value)} />
+              <input style={{ ...inputStyle, color: C.text }} type="number" min="0" value={form.stock} onChange={e => handleChange('stock', e.target.value)} />
             </div>
           </div>
 
           <div style={fieldWrap}>
             <label style={labelStyle}>Image URL</label>
-            <input style={inputStyle} value={form.image} onChange={e => handleChange('image', e.target.value)} placeholder="https://..." />
+            <input style={{ ...inputStyle, color: C.text }} value={form.image} onChange={e => handleChange('image', e.target.value)} placeholder="https://..." />
           </div>
 
           <div style={fieldWrap}>
