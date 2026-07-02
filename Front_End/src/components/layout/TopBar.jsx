@@ -4,7 +4,8 @@ import AvatarBubble from '../ui/AvatarBubble';
 import { C } from "../../theme/colors";
 import { NAV } from "../../data/constants";
 
-function TopBar({ page, user, isDark, toggleTheme }) {
+
+function TopBar({ page, user, isDark, toggleTheme, setActivePage }) {
   const title = NAV.find(n => n.id === page)?.label || page;
 
   return (
@@ -60,7 +61,10 @@ function TopBar({ page, user, isDark, toggleTheme }) {
             />
           </button>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div
+          onClick={() => setActivePage('settings')}
+          style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}
+        >
           <AvatarBubble initials={user.name.split(" ").map(n => n[0]).join("").slice(0,2)} size={32}/>
           <div style={{ lineHeight: 1.3 }}>
             <p style={{ fontSize: "0.82rem", fontWeight: 600, color: C.text }}>{user.name}</p>

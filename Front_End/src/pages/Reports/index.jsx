@@ -68,7 +68,7 @@ export default function ReportsPage() {
       )}
 
       <Card style={{ marginBottom: 20 }}>
-        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.05rem", marginBottom: 16 }}>
+        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.05rem", marginBottom: 16, color: C.text, }}>
           Choose a report type
         </h3>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
@@ -105,7 +105,7 @@ export default function ReportsPage() {
       </Card>
 
       <Card style={{ marginBottom: 20 }}>
-        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.05rem", marginBottom: 10 }}>
+        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.05rem", marginBottom: 10, color: C.text, }}>
           Add custom instructions {selectedType && "(optional)"}
         </h3>
         <textarea

@@ -6,7 +6,7 @@ import { fmt } from '../../utils/formatters';
 
 const RevenueChart = ({ data }) => (
   <Card>
-    <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.95rem", marginBottom: 16 }}>Revenue vs Expenses</h3>
+    <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700,  fontSize: "0.95rem", marginBottom: 16, color: C.text, }}>Revenue vs Expenses</h3>
     <ResponsiveContainer width="100%" height={200}>
       <AreaChart data={data}>
         <defs>
@@ -30,7 +30,7 @@ const RevenueChart = ({ data }) => (
           tick={{ fill: C.textMuted, fontSize: 11 }} 
           axisLine={false} 
           tickLine={false} 
-          tickFormatter={v => `$${v / 1000}k`} 
+          tickFormatter={v => `₹${v / 1000}k`} 
         />
         <Tooltip 
           contentStyle={{ background: C.card, border: `1px solid ${C.cardBorder}`, borderRadius: 8, color: C.text, fontSize: 12 }} 

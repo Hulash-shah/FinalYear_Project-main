@@ -27,7 +27,7 @@ const AppShell = ({ children, activePage, setActivePage, user, onLogout, isDark,
         setCollapsed={setSidebarCollapsed}
       />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-        <TopBar page={activePage} user={user} isDark={isDark} toggleTheme={toggleTheme} />
+        <TopBar page={activePage} user={user} isDark={isDark} toggleTheme={toggleTheme} setActivePage={setActivePage} />
         <div style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}>
           {children}
         </div>

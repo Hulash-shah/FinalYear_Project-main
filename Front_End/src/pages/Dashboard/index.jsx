@@ -10,9 +10,7 @@ import { C } from '../../theme/colors';
 import { fmt } from '../../utils/formatters';
 
 export default function DashboardPage({ data, setActivePage }) {
-  // Total revenue = sum of Paid invoices, not the static mock revenueData,
-  // so this number (and the chart below) move whenever a real invoice is
-  // created/marked Paid on the Finance page.
+  
   const totalRevenue = data.invoices
     .filter(i => i.status === "Paid")
     .reduce((a, b) => a + b.amount, 0);
@@ -22,9 +20,7 @@ export default function DashboardPage({ data, setActivePage }) {
 
   const lowStock = data.inventory.filter(i => i.stock < i.minStock);
 
-  // Category breakdown for the pie chart — built from real expense
-  // categories (invoices don't have a "category" field, only expenses do),
-  // instead of the static mock data.salesData.
+  
   const CHART_COLORS = [C.accent, C.info, C.warning, C.success, C.danger, "#a855f7", "#14b8a6"];
   const categoryTotals = {};
   data.expenses
@@ -93,13 +89,13 @@ export default function DashboardPage({ data, setActivePage }) {
     <div className="page-content" style={{ padding: "28px 28px", overflowY: "auto", flex: 1 }}>
        <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "2rem", color: C.text, margin: "0 0 8px 0" }}>Dashboard</h1>
                     <p style={{ color: C.textMuted, margin: "0 0 24px 1", fontSize: "1rem" }}>Welcome back! Here's what's happening today.</p>
-      {/* <PageHeader title="Dashboard" subtitle="Welcome back! Here's what's happening today."/> */}
+      
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 24 }}>
         <StatCard
           label="Total Revenue (YTD)"
           value= {fmt(totalRevenue)}
-          change="+12.4%"
+         
           icon= "rupee"
           color={C.accent}
           onClick={() => setActivePage("finance")}
@@ -107,7 +103,7 @@ export default function DashboardPage({ data, setActivePage }) {
         <StatCard
           label="Active Employees"
           value={activeEmployees}
-          change="+2"
+          
           icon="employees"
           color={C.info}
           onClick={() => setActivePage("employees")}
@@ -115,7 +111,7 @@ export default function DashboardPage({ data, setActivePage }) {
         <StatCard
           label="Pending Invoices"
           value={pendingInvoices}
-          change={pendingInvoices > 2 ? "+1" : "-1"}
+          
           icon="rupee"
           color={C.warning}
           onClick={() => setActivePage("finance")}
@@ -128,7 +124,7 @@ export default function DashboardPage({ data, setActivePage }) {
           onClick={() => setActivePage("finance")}
           style={{ cursor: "pointer" }}
         >
-          <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.95rem", marginBottom: 16 }}>Expenses by Category</h3>
+          <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.95rem", marginBottom: 16,  color: C.text,}}>Expenses by Category</h3>
           {categoryData.length === 0 ? (
             <p style={{ color: C.textMuted, fontSize: "0.85rem", padding: "20px 0" }}>No expense data yet.</p>
           ) : (
@@ -160,32 +156,8 @@ export default function DashboardPage({ data, setActivePage }) {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
+        
         <ActivityFeed activities={recentActivity} onViewAll={() => setActivePage("finance")} />
-
-        {/* <Card style={{ cursor: "default" }}>
-          <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.95rem", marginBottom: 14 }}>Project Progress</h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            {data.projects.filter(p => p.status !== "Completed").slice(0, 4).map(p => (
-              <div key={p.id}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-                  <span style={{ fontSize: "0.8rem", color: C.text }}>{p.name}</span>
-                  <span style={{ fontSize: "0.75rem", color: C.textMuted }}>{p.progress}%</span>
-                </div>
-                <div style={{ height: 5, borderRadius: 3, background: "#2a2a2a" }}>
-                  <div
-                    style={{
-                      height: "100%",
-                      borderRadius: 3,
-                      width: `${p.progress}%`,
-                      background: p.progress > 75 ? C.success : p.progress > 40 ? C.accent : C.warning,
-                      transition: "width 0.3s"
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card> */}
 
         <LowStockAlert items={lowStock} onViewAll={() => setActivePage("store")} />
       </div>

@@ -4,9 +4,6 @@ import { C } from '../theme/colors';
 
 const API_BASE = 'http://localhost:5000/api/products';
 
-// Known categories get a couple of extra attribute fields tailored to them.
-// Anything not listed here (i.e. any new category the user creates) just
-// gets the base fields — no code changes needed to support it.
 const CATEGORY_EXTRA_FIELDS = {
   Shoes: [],
   Clothing: [],
@@ -28,12 +25,16 @@ export default function CategoryInventory({ category }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [search, setSearch] = useState('');
 
   const fetchItems = useCallback(async () => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API_BASE}?category=${encodeURIComponent(category)}`, {
+      const params = new URLSearchParams({ category });
+      if (search) params.set('search', search);
+
+      const res = await fetch(`${API_BASE}?${params.toString()}`, {
         headers: getAuthHeaders(),
       });
       const data = await res.json();
@@ -44,10 +45,13 @@ export default function CategoryInventory({ category }) {
     } finally {
       setLoading(false);
     }
-  }, [category]);
+  }, [category, search]);
 
   useEffect(() => {
-    fetchItems();
+    const timer = setTimeout(() => {
+      fetchItems();
+    }, 300); // debounce so it doesn't fire on every keystroke
+    return () => clearTimeout(timer);
   }, [fetchItems]);
 
   const handleAdd = async (formData) => {
@@ -113,10 +117,10 @@ export default function CategoryInventory({ category }) {
         </span>
       )
     },
-    { key: 'price', label: 'Price', render: val => `$${Number(val).toFixed(2)}` },
+    { key: 'price', label: 'Price', render: val => `₹${Number(val).toFixed(2)}` },
   ];
 
-  if (loading) {
+  if (loading && items.length === 0) {
     return <div style={{ color: C.textMuted, padding: 40 }}>Loading {category} inventory...</div>;
   }
 
@@ -126,6 +130,25 @@ export default function CategoryInventory({ category }) {
 
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <div style={{ marginBottom: 16 }}>
+        <input
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder={`Search ${category.toLowerCase()} by name or brand...`}
+          style={{
+            width: "100%",
+            maxWidth: 360,
+            padding: "10px 14px",
+            borderRadius: 8,
+            border: `1px solid ${C.cardBorder}`,
+            background: C.inputBg || C.card,
+            color: C.text,
+            fontSize: "0.9rem",
+            outline: "none",
+            boxSizing: "border-box",
+          }}
+        />
+      </div>
       <InventoryTable
         title={`${category} Inventory`}
         description={`Manage stock and product details for ${category.toLowerCase()}.`}

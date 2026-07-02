@@ -8,7 +8,7 @@ const FinanceChart = ({ data }) => (
   <Card>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
       <div>
-        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.1rem", margin: "0 0 4px 0" }}>Financial Overview</h3>
+        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.1rem", margin: "0 0 4px 0",color: C.text, }}>Financial Overview</h3>
         <p style={{ margin: 0, color: C.textMuted, fontSize: "0.85rem" }}>Revenue, Expenses, and Profit comparison (YTD)</p>
       </div>
     </div>

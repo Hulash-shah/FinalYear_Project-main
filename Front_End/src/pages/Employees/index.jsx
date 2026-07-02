@@ -168,14 +168,14 @@ export default function EmployeesPage({  setData }) {
                   <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                     <AvatarBubble initials={emp.avatar} size={34} />
                     <div>
-                      <p style={{ fontWeight: 600, fontSize: '0.88rem' }}>{emp.name}</p>
-                      <p style={{ fontSize: '0.74rem', color: C.textMuted }}>{emp.email}</p>
+                      <p style={{ fontWeight: 600, fontSize: '0.88rem', color: C.text}}>{emp.name}</p>
+                      <p style={{ fontSize: '0.74rem', color: C.textMuted,  }}>{emp.email}</p>
                     </div>
                   </div>
                 </TD>
-                <TD><span style={{ background: '#ffffff10', padding: '3px 10px', borderRadius: 20, fontSize: '0.78rem' }}>{emp.dept}</span></TD>
+                <TD><span style={{ background: '#ffffff10', padding: '3px 10px', borderRadius: 20, fontSize: '0.78rem', color: C.text }}>{emp.dept}</span></TD>
                 <TD style={{ color: C.textMuted }}>{emp.role}</TD>
-                <TD style={{ fontWeight: 600 }}>{fmt(emp.salary)}</TD>
+                <TD style={{ fontWeight: 600 , color: C.text }}>{fmt(emp.salary)}</TD>
                 <TD><Badge label={emp.status} color={statusColor(emp.status)} /></TD>
                 <TD>
                   <div style={{ display: 'flex', gap: 6 }}>

@@ -15,7 +15,7 @@ const SearchBar = ({ value, onChange, placeholder = "Search..." }) => (
       onChange={e => onChange(e.target.value)} 
       placeholder={placeholder}
       style={{
-        background: "#1e1e1e",
+        background: C.card,
         border: `1px solid ${C.cardBorder}`,
         borderRadius: 8,
         padding: "8px 12px 8px 34px",

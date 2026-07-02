@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
 import { employeeAPI } from '../api/employeeAPI';
 
-// No more mock data — the app starts empty and fills in entirely from
-// real API calls below. These empty arrays just prevent crashes (e.g.
-// `data.invoices.filter(...)`) in the brief moment before each fetch
-// resolves.
 const EMPTY_DATA = {
   employees: [],
   customers: [],
@@ -64,10 +60,6 @@ export function useAppData() {
         const res = await fetch(`${API_BASE}/products`, { headers: authHeaders() });
         const result = await res.json();
         if (result.success) {
-          // LowStockAlert expects { id, name, category, stock, minStock }.
-          // The Product model doesn't store a per-product minStock, it just
-          // flags status "Low Stock" once stock < 10 (see products.js), so
-          // we reuse that same threshold here for the "min" display.
           const inventory = result.data.map(p => ({
             id: p._id,
             name: p.name,
@@ -86,7 +78,7 @@ export function useAppData() {
     loadInvoices();
     loadExpenses();
     loadProducts();
-  }, []);
+  }, []); // fine now — this hook will run fresh each time its component mounts
 
   return { data, setData };
 }

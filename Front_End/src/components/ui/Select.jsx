@@ -8,7 +8,7 @@ const Select = ({ label, value, onChange, options, style = {} }) => (
       value={value} 
       onChange={e => onChange(e.target.value)}
       style={{
-        background: "#222",
+        background: C.inputBg || C.card,
         border: `1.5px solid ${C.cardBorder}`,
         borderRadius: 8,
         padding: "9px 13px",

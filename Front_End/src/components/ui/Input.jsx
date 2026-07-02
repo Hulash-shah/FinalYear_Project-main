@@ -10,7 +10,7 @@ const Input = ({ label, value, onChange, type = "text", placeholder = "", error 
       onChange={e => onChange(e.target.value)} 
       placeholder={placeholder}
       style={{
-        background: "#222",
+        background: C.inputBg || C.card,
         border: `1.5px solid ${error ? C.danger : C.cardBorder}`,
         borderRadius: 8,
         padding: "9px 13px",

@@ -5,20 +5,20 @@ import { C } from '../../theme/colors';
 
 const PreferencesSection = ({ form, setForm }) => (
   <Card>
-    <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, marginBottom: 20 }}>Preferences</h3>
+    {/* <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, marginBottom: 20 }}>Preferences</h3> */}
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-      <Select 
+      {/* <Select 
         label="Language" 
         value={form.language} 
         onChange={v => setForm({ ...form, language: v })} 
         options={["English", "Spanish", "French", "German"]}
-      />
-      <Select 
+      /> */}
+      {/* <Select 
         label="Theme" 
         value={form.theme} 
         onChange={v => setForm({ ...form, theme: v })} 
         options={["dark", "light"]}
-      />
+      /> */}
       <div 
         style={{
           display: "flex", 
@@ -30,10 +30,10 @@ const PreferencesSection = ({ form, setForm }) => (
           borderRadius: 9
         }}
       >
-        <div>
+        {/* <div>
           <p style={{ fontWeight: 500, fontSize: "0.88rem" }}>Email Notifications</p>
           <p style={{ fontSize: "0.76rem", color: C.textMuted, marginTop: 2 }}>Receive alerts for invoices, tasks & reports</p>
-        </div>
+        </div> */}
         <div 
           onClick={() => setForm({ ...form, notifications: !form.notifications })} 
           style={{

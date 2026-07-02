@@ -4,7 +4,7 @@ import { C } from '../../theme/colors';
 
 const LowStockAlert = ({ items, onViewAll }) => (
   <Card>
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, color: C.text, }}>
       <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.95rem" }}>⚠ Low Stock Alerts</h3>
       {onViewAll && items.length > 0 && (
         <span

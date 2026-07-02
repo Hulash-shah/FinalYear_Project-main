@@ -155,7 +155,7 @@ export default function CustomersPage({  setData }) {
                 <TD>
                   <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                     <AvatarBubble initials={initials(cust.name)} size={34} />
-                    <p style={{ fontWeight: 600, fontSize: '0.88rem' }}>{cust.name}</p>
+                    <p style={{ fontWeight: 600, fontSize: '0.88rem', color: C.text }}>{cust.name}</p>
                   </div>
                 </TD>
                 <TD style={{ color: C.textMuted }}>{cust.email}</TD>

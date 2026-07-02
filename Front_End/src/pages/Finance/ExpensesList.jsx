@@ -16,7 +16,7 @@ export default function ExpensesList({ expenses, onEdit, onDelete }) {
   return (
     <Card style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.05rem", margin: 0 }}>Recent Expenses</h3>
+        <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.05rem", margin: 0, color: C.text, }}>Recent Expenses</h3>
         <button style={{ background: "transparent", color: C.info, border: "none", cursor: "pointer", fontSize: "0.85rem", fontWeight: 600 }}>
           View All
         </button>

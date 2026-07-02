@@ -12,28 +12,10 @@ import { useAuth } from './hooks/useAuth';
 import { useAppData } from './hooks/useAppData';
 import { useTheme } from './hooks/useTheme';
 import ReportsPage from './pages/Reports/index.jsx';
-   
-   
-export default function App() {
-  const { user, setUser, page, setPage, login, register, logout } = useAuth();
+
+function MainApp({ user, setUser, logout, isDark, toggleTheme }) {
   const { data, setData } = useAppData();
-  const { isDark, toggleTheme } = useTheme();
   const [activePage, setActivePage] = useState("dashboard");
-
-  const handleLogin = async (...args) => {
-    await login(...args);
-    setActivePage("dashboard");
-  };
-
-  const handleRegister = async (...args) => {
-    await register(...args);
-    setActivePage("dashboard");
-  };
-
-  // key forces a full remount of the subtree whenever theme flips,
-  // guaranteeing every nested component re-renders with fresh C values
-  if (page === "login") return <LoginPage key={isDark} onLogin={handleLogin} onNavigate={setPage} isDark={isDark} toggleTheme={toggleTheme} />;
-  if (page === "register") return <RegisterPage key={isDark} onRegister={handleRegister} onNavigate={setPage} isDark={isDark} toggleTheme={toggleTheme} />;
 
   const pageProps = { data, setData, user, setUser, setActivePage };
 
@@ -54,13 +36,33 @@ export default function App() {
       {activePage === "finance" && <FinancePage {...pageProps} />}
       {activePage === "customers" && <CustomersPage {...pageProps} />}
       {activePage === "reports" && <ReportsPage />}
-{/* 
-      {!['dashboard', 'employees', 'settings', 'store', 'finance', 'customers'].includes(activePage) && (
-        <div style={{ padding: 40, color: '#888' }}>
-          <h2>{activePage.charAt(0).toUpperCase() + activePage.slice(1)} Page Coming Soon</h2>
-          <p>This module is currently being refactored into its own component.</p>
-        </div>
-      )} */}
     </AppShell>
+  );
+}
+
+export default function App() {
+  const { user, setUser, page, setPage, login, register, logout } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
+
+  const handleLogin = async (...args) => {
+    await login(...args);
+  };
+
+  const handleRegister = async (...args) => {
+    await register(...args);
+  };
+
+  if (page === "login") return <LoginPage key={isDark} onLogin={handleLogin} onNavigate={setPage} isDark={isDark} toggleTheme={toggleTheme} />;
+  if (page === "register") return <RegisterPage key={isDark} onRegister={handleRegister} onNavigate={setPage} isDark={isDark} toggleTheme={toggleTheme} />;
+
+  return (
+    <MainApp
+      key={user?.id || user?._id}
+      user={user}
+      setUser={setUser}
+      logout={logout}
+      isDark={isDark}
+      toggleTheme={toggleTheme}
+    />
   );
 }

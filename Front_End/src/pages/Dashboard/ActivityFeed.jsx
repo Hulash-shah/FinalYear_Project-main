@@ -5,7 +5,7 @@ import { C } from '../../theme/colors';
 const ActivityFeed = ({ activities, onViewAll }) => (
   <Card>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-      <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.95rem" }}>Recent Activity</h3>
+      <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "0.95rem", color: C.text, }}>Recent Activity</h3>
       {onViewAll && activities.length > 0 && (
         <span
           onClick={onViewAll}

@@ -3,7 +3,7 @@ import PageHeader from '../../components/ui/PageHeader';
 import Icon from '../../components/ui/Icon';
 import Btn from '../../components/ui/Btn';
 import ProfileSection from './ProfileSection';
-import PreferencesSection from './PreferencesSection';
+// import PreferencesSection from './PreferencesSection';
 import { C } from '../../theme/colors';
 
 export default function SettingsPage({ user, setUser }) {
@@ -26,15 +26,25 @@ export default function SettingsPage({ user, setUser }) {
 
   return (
     <div className="page-content" style={{ padding: "28px", overflowY: "auto", flex: 1 }}>
-      <PageHeader title="Settings" subtitle="Manage your account and preferences" />
+     <h1
+        style={{
+          fontFamily: "'Syne', sans-serif",
+          fontSize: "2rem",
+          color: C.text,
+          margin: "0 0 8px 0",
+        
+        }}
+      >
+        Settings
+      </h1>
       
       <div style={{ display: "grid", gridTemplateColumns: "240px 1fr", gap: 24 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {[
             ["Profile", "user"],
-            ["Security", "settings"],
-            ["Notifications", "bell"],
-            ["Appearance", "eye"]
+            // ["Security", "settings"],
+            // ["Notifications", "bell"],
+            // ["Appearance", "eye"]
           ].map(([l, ic]) => (
             <button 
               key={l} 
@@ -61,7 +71,7 @@ export default function SettingsPage({ user, setUser }) {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <ProfileSection user={user} form={form} setForm={setForm} />
-          <PreferencesSection form={form} setForm={setForm} />
+          {/* <PreferencesSection form={form} setForm={setForm} /> */}
           
           <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", alignItems: "center" }}>
             {saved && (
