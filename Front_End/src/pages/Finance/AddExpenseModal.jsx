@@ -110,7 +110,7 @@ export default function AddExpenseModal({ onClose, onSave, expense: existingExpe
     </div>
   );
 }
-
+// CSS haleko
 const overlay = {
   position: "fixed",
   inset: 0,

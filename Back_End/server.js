@@ -9,6 +9,7 @@ const verifyToken = require("./middleware/auth");
 const productRoutes = require("./routes/products");
 const customerRoutes = require("./routes/customers");
 const invoiceRoutes = require("./routes/invoices");
+const purchaseRoutes = require("./routes/purchases");
 const expenseRoutes = require("./routes/expenses");
 const reportRoutes = require("./routes/reports");
 
@@ -25,6 +26,7 @@ app.use("/api/employees", verifyToken, employeeRoutes);
 app.use("/api/products", verifyToken, productRoutes);
 app.use("/api/customers", verifyToken, customerRoutes);
 app.use("/api/invoices", verifyToken, invoiceRoutes);
+app.use("/api/purchases", verifyToken, purchaseRoutes);
 app.use("/api/expenses", verifyToken, expenseRoutes);
 app.use("/api/reports", verifyToken, reportRoutes);
 

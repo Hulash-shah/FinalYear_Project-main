@@ -214,7 +214,7 @@ export default function AddInvoiceModal({ onClose, onSave, invoice: existingInvo
   }
 />
 
-        {/* PRODUCT LINE ITEMS (optional) */}
+        
         <label style={{ fontSize: "0.8rem", color: C.textMuted, display: "block", marginBottom: 4 }}>
           Products (optional — auto-deducts stock)
         </label>
@@ -345,6 +345,7 @@ export default function AddInvoiceModal({ onClose, onSave, invoice: existingInvo
   );
 }
 
+// CSS used
 const overlay = {
   position: "fixed",
   inset: 0,

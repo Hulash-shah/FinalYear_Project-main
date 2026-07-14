@@ -7,22 +7,26 @@ import InvoicesList from "./InvoicesList";
 import ExpensesList from "./ExpensesList";
 import AddInvoiceModal from "./AddInvoiceModal";
 import AddExpenseModal from "./AddExpenseModal";
+import PurchasesList from "./PurchasesList";
+import AddPurchaseModal from "./AddPurchaseModal";
 
 export default function FinancePage({ data, setData }) {
 
   const [showInvoice, setShowInvoice] = useState(false);
   const [showExpense, setShowExpense] = useState(false);
+  const [showPurchase, setShowPurchase] = useState(false);
   const [editingInvoice, setEditingInvoice] = useState(null);
   const [editingExpense, setEditingExpense] = useState(null);
+  const [editingPurchase, setEditingPurchase] = useState(null);
 
   const authHeaders = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   };
 
-  // =========================
+  
   // CREATE / UPDATE INVOICE
-  // =========================
+ 
 
   const saveInvoice = async (invoice) => {
   try {
@@ -80,9 +84,9 @@ export default function FinancePage({ data, setData }) {
     }
   };
 
-  // =========================
+ 
   // CREATE / UPDATE EXPENSE
-  // =========================
+ 
 
   const saveExpense = async (expense) => {
   try {
@@ -140,21 +144,74 @@ export default function FinancePage({ data, setData }) {
     }
   };
 
+ 
+  // CREATE / UPDATE PURCHASE
+ 
+
+  const savePurchase = async (purchase) => {
+    try {
+      const isEditing = Boolean(purchase._id);
+      const url = isEditing
+        ? `http://localhost:5000/api/purchases/${purchase._id}`
+        : "http://localhost:5000/api/purchases";
+
+      const res = await fetch(url, {
+        method: isEditing ? "PUT" : "POST",
+        headers: authHeaders,
+        body: JSON.stringify(purchase),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok || !result.success) {
+        alert(result.message || "Failed to save purchase.");
+        return;
+      }
+
+      setData(prev => ({
+        ...prev,
+        purchases: isEditing
+          ? prev.purchases.map(p => (p._id === result.data._id ? result.data : p))
+          : [result.data, ...(prev.purchases || [])],
+      }));
+
+      setShowPurchase(false);
+      setEditingPurchase(null);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to save purchase.");
+    }
+  };
+
+  const deletePurchase = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/purchases/${id}`, {
+        method: "DELETE",
+        headers: authHeaders,
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        alert(result.message || "Failed to delete purchase.");
+        return;
+      }
+      setData(prev => ({
+        ...prev,
+        purchases: (prev.purchases || []).filter(p => p._id !== id),
+      }));
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete purchase.");
+    }
+  };
+
   // TOTALS
-  // =========================
-
-  // TOTALS — derived from the live invoices/expenses lists so that newly
-  // added invoices/expenses immediately move these numbers, instead of
-  // the old static `revenueData` (which never changes after a save).
-  // =========================
-
+  
   const totalRevenue = data.invoices
     .filter(i => i.status === "Paid")
     .reduce((a, b) => a + b.amount, 0);
 
-  // Count every expense that hasn't been explicitly rejected — a newly
-  // recorded expense defaults to "Pending" and should still count as a
-  // real cost until someone rejects it, not just once it's "Approved".
+  // Count every expense 
+  
   const totalExpenses = data.expenses
     .filter(e => e.status !== "Rejected")
     .reduce((a, b) => a + b.amount, 0);
@@ -162,8 +219,7 @@ export default function FinancePage({ data, setData }) {
   const netProfit = totalRevenue - totalExpenses;
 
   // CHART DATA — group real invoices (revenue) and expenses by month
-  // instead of using the static mock revenueData, so the bar chart moves
-  // whenever a new invoice/expense is saved.
+ 
   const monthKey = (d) => {
     const dt = new Date(d);
     return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}`;
@@ -243,7 +299,7 @@ export default function FinancePage({ data, setData }) {
     <StatCard
       label="Total Revenue (YTD)"
       value={fmt(totalRevenue)}
-      change="+12.4%"
+     
       icon="rupee"
       color={C.accent}
     />
@@ -251,7 +307,7 @@ export default function FinancePage({ data, setData }) {
     <StatCard
       label="Total Expenses (YTD)"
       value={fmt(totalExpenses)}
-      change="-3.2%"
+     
       icon="rupee"
       color={C.danger}
     />
@@ -259,7 +315,7 @@ export default function FinancePage({ data, setData }) {
     <StatCard
       label="Net Profit (YTD)"
       value={fmt(netProfit)}
-      change="+15.8%"
+     
       icon="rupee"
       color={C.info}
     />
@@ -267,7 +323,7 @@ export default function FinancePage({ data, setData }) {
     <StatCard
       label="Pending Invoices"
       value={fmt(pendingInvoicesAmt)}
-      change="-2.1%"
+      
       icon="rupee"
       color={C.warning}
     />
@@ -338,6 +394,22 @@ export default function FinancePage({ data, setData }) {
         >
           + Record Expense
         </button>
+
+        <button
+          onClick={() => { setEditingPurchase(null); setShowPurchase(true); }}
+          style={{
+            padding: 14,
+            border: "none",
+            borderRadius: 8,
+            background: "rgba(34,197,94,.10)",
+            color: C.success,
+            cursor: "pointer",
+            fontWeight: 600,
+            textAlign: "left",
+          }}
+        >
+          + New Purchase
+        </button>
       </div>
     </div>
   </div>
@@ -345,7 +417,7 @@ export default function FinancePage({ data, setData }) {
   <div
     style={{
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "1fr 1fr 1fr",
       gap: 20,
       flex: 1,
     }}
@@ -360,6 +432,12 @@ export default function FinancePage({ data, setData }) {
       expenses={data.expenses}
       onEdit={(exp) => { setEditingExpense(exp); setShowExpense(true); }}
       onDelete={deleteExpense}
+    />
+
+    <PurchasesList
+      purchases={data.purchases || []}
+      onEdit={(p) => { setEditingPurchase(p); setShowPurchase(true); }}
+      onDelete={deletePurchase}
     />
   </div>
 
@@ -380,6 +458,16 @@ export default function FinancePage({ data, setData }) {
       expense={editingExpense}
       onClose={() => { setShowExpense(false); setEditingExpense(null); }}
       onSave={saveExpense}
+    />
+  )}
+
+  {/* Purchase Modal */}
+
+  {showPurchase && (
+    <AddPurchaseModal
+      purchase={editingPurchase}
+      onClose={() => { setShowPurchase(false); setEditingPurchase(null); }}
+      onSave={savePurchase}
     />
   )}
 </div>

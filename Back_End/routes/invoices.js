@@ -3,6 +3,7 @@ const router = express.Router();
 const Invoice = require("../models/Invoice");
 const Customer = require("../models/Customer");
 const Product = require("../models/Product");
+const { adjustStock } = require("../utils/stockAdjust");
 
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -29,34 +30,6 @@ async function resolveCustomer(userId, client, details = {}) {
   }
 
   return customer;
-}
-
-// Refreshes a product's status field ("In Stock" / "Low Stock" / "Out of
-// Stock") after its stock count changes, matching the logic in products.js.
-function statusFor(stock) {
-  if (stock <= 0) return "Out of Stock";
-  if (stock < 10) return "Low Stock";
-  return "In Stock";
-}
-
-// Applies stock deltas for a set of invoice items. `sign` is +1 to restore
-// stock (e.g. on delete/cancel) or -1 to deduct it (e.g. on create/sale).
-// Uses $inc for an atomic update, then recalculates status separately.
-async function adjustStock(items, sign, userId) {
-  for (const item of items) {
-    const product = await Product.findOneAndUpdate(
-      { _id: item.productId, userId },
-      { $inc: { stock: sign * item.quantity } },
-      { new: true }
-    );
-    if (product) {
-      const clampedStock = Math.max(product.stock, 0);
-      await Product.findByIdAndUpdate(product._id, {
-        stock: clampedStock,
-        status: statusFor(clampedStock),
-      });
-    }
-  }
 }
 
 // Get all invoices for the logged-in user

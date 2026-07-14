@@ -6,6 +6,7 @@ const EMPTY_DATA = {
   customers: [],
   invoices: [],
   expenses: [],
+  purchases: [],
   inventory: [],
 };
 
@@ -55,6 +56,18 @@ export function useAppData() {
       }
     }
 
+    async function loadPurchases() {
+      try {
+        const res = await fetch(`${API_BASE}/purchases`, { headers: authHeaders() });
+        const result = await res.json();
+        if (result.success) {
+          setData(prev => ({ ...prev, purchases: result.data }));
+        }
+      } catch (err) {
+        console.error("Failed to load purchases:", err);
+      }
+    }
+
     async function loadProducts() {
       try {
         const res = await fetch(`${API_BASE}/products`, { headers: authHeaders() });
@@ -77,6 +90,7 @@ export function useAppData() {
     loadEmployees();
     loadInvoices();
     loadExpenses();
+    loadPurchases();
     loadProducts();
   }, []); // fine now — this hook will run fresh each time its component mounts
 
