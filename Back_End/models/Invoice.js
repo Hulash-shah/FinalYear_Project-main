@@ -1,5 +1,23 @@
 const mongoose = require("mongoose");
 
+const invoiceItemSchema = new mongoose.Schema(
+  {
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
+    },
+    name: String,       // snapshot of product name at time of sale
+    quantity: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
+    price: Number,       // snapshot of unit price at time of sale
+  },
+  { _id: false }
+);
+
 const invoiceSchema = new mongoose.Schema(
   {
     userId: {
@@ -8,16 +26,12 @@ const invoiceSchema = new mongoose.Schema(
       required: true,
     },
 
-    // Optional link to a real Customer record (used by customers.js to
-    // aggregate totalSpent). Not required, because invoices can be created
-    // from the Finance page just by typing a client name.
     customerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer",
       required: false,
     },
 
-    // Free-text client name, matches what AddInvoiceModal actually collects.
     client: {
       type: String,
       required: true,
@@ -27,7 +41,6 @@ const invoiceSchema = new mongoose.Schema(
     invoiceNumber: {
       type: String,
       trim: true,
-      // Auto-generate one if the frontend doesn't supply it.
       default: () => `INV-${Date.now()}`,
     },
 
@@ -42,7 +55,6 @@ const invoiceSchema = new mongoose.Schema(
       default: "Pending",
     },
 
-    // Issue date, shown in InvoicesList as "Iss: ..."
     date: {
       type: Date,
       default: Date.now,
@@ -51,6 +63,14 @@ const invoiceSchema = new mongoose.Schema(
     dueDate: Date,
 
     description: String,
+
+    // Optional — only present when this invoice was created from Store
+    // products. When present, stock is auto-decremented on create and
+    // reversed on delete/edit.
+    items: {
+      type: [invoiceItemSchema],
+      default: [],
+    },
   },
   {
     timestamps: true,

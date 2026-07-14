@@ -1,8 +1,8 @@
-export const DARK = {
- bg: "#f7f7f7",
-  sidebar: "#ffffff",
-  card: "#ffffff",
-  cardBorder: "#e2e2e2",
+export const LIGHT = {
+ bg: "#E8E4F8",
+  sidebar: "#F5F3FC",
+  card: "#F5F3FC",
+  cardBorder: "#D9D3F0 ",
   accent: "#1f5de3",
   accentDim: "rgba(23, 64, 151, 0.1)",
   text: "#0f0f0f",
@@ -18,7 +18,7 @@ export const DARK = {
   iconMuted : "#888888",
 };
 
-export const LIGHT = {
+export const DARK = {
   bg: "#0f0f0f",
   sidebar: "#141414",
   card: "#1a1a1a",
