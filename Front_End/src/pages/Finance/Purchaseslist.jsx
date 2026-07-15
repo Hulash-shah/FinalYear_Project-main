@@ -8,9 +8,9 @@ export default function PurchasesList({ purchases, onEdit, onDelete }) {
     <Card style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
         <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: "1.05rem", margin: 0, color: C.text, }}>Recent Purchases</h3>
-        <button style={{ background: "transparent", color: C.info, border: "none", cursor: "pointer", fontSize: "0.85rem", fontWeight: 600 }}>
+        {/* <button style={{ background: "transparent", color: C.info, border: "none", cursor: "pointer", fontSize: "0.85rem", fontWeight: 600 }}>
           View All
-        </button>
+        </button> */}
       </div>
 
       <div style={{ overflowY: "auto", flex: 1 }}>
@@ -25,7 +25,8 @@ export default function PurchasesList({ purchases, onEdit, onDelete }) {
           </thead>
           <tbody>
             {purchases.map((p, idx) => (
-              <tr key={p._id} style={{ borderBottom: idx === purchases.length - 1 ? "none" : `1px solid ${C.cardBorder}`, transition: "background 0.2s" }} onMouseOver={e=>e.currentTarget.style.background="rgba(255,255,255,0.02)"} onMouseOut={e=>e.currentTarget.style.background="transparent"}>
+              <tr key={p._id} style={{ borderBottom: idx === purchases.length - 1 ? "none" : `1px solid ${C.cardBorder}`, transition: "background 0.2s" }}
+               onMouseOver={e=>e.currentTarget.style.background="rgba(255,255,255,0.02)"} onMouseOut={e=>e.currentTarget.style.background="transparent"}>
                 <td style={{ padding: "12px 10px" }}>
                   <div style={{ fontWeight: 600, color: C.text }}>{p.purchaseNumber}</div>
                   <div style={{ color: C.textMuted, fontSize: "0.8rem", marginTop: 2 }}>{p.supplier}</div>
