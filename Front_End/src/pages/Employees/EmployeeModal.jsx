@@ -39,7 +39,7 @@ const EmployeeModal = ({ modal, onClose, form, setForm, save, saving, error }) =
         onChange={v => setForm({ ...form, phone: v })}
       />
       <Input
-        label="Salary ($)"
+        label="Salary"
         value={form.salary}
         onChange={v => setForm({ ...form, salary: v })}
         type="number"
