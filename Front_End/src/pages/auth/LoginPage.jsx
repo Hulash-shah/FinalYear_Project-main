@@ -13,7 +13,7 @@ export default function LoginPage({ onLogin, onNavigate, isDark, toggleTheme }) 
     setError("");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/login", {
+      const res = await fetch("https://finalyear-project-main.onrender.com/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
