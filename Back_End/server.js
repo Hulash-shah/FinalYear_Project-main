@@ -17,7 +17,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://bizcore-peach.vercel.app/",
+  origin: "https://bizcore-peach.vercel.app",
   credentials: true
 }));
 
