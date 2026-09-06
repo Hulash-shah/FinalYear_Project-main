@@ -30,7 +30,7 @@ app.use("/api/purchases", verifyToken, purchaseRoutes);
 app.use("/api/expenses", verifyToken, expenseRoutes);
 app.use("/api/reports", verifyToken, reportRoutes);
 
-mongoose.connect('mongodb://127.0.0.1:27017/businessDB')
+mongoose.connect('mongodb://shahhulash_db_user:46t4Io4B6JU3V78t@ac-oni1z2g-shard-00-00.rmt0vta.mongodb.net:27017,ac-oni1z2g-shard-00-01.rmt0vta.mongodb.net:27017,ac-oni1z2g-shard-00-02.rmt0vta.mongodb.net:27017/?ssl=true&replicaSet=atlas-70hel3-shard-0&authSource=admin&appName=Cluster0')
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log("MongoDB error:", err));
 
