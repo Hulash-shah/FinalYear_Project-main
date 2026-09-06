@@ -5,6 +5,7 @@ import { fmt } from "../../utils/formatters";
 import FinanceChart from "./FinanceChart";
 import InvoicesList from "./InvoicesList";
 import ExpensesList from "./ExpensesList";
+import PurchasesList from "./PurchasesList";
 import AddInvoiceModal from "./AddInvoiceModal";
 import AddExpenseModal from "./AddExpenseModal";
 import AddPurchaseModal from "./AddPurchaseModal";
