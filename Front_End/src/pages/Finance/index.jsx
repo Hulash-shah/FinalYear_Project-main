@@ -8,7 +8,7 @@ import ExpensesList from "./ExpensesList";
 import PurchasesList from "./PurchasesList";
 import AddInvoiceModal from "./AddInvoiceModal";
 import AddExpenseModal from "./AddExpenseModal";
-import AddPurchaseModal from "./AddPurchaseModal";
+// import AddPurchaseModal from "./AddPurchaseModal";
 
 
 
