@@ -7,7 +7,7 @@ import InvoicesList from "./InvoicesList";
 import ExpensesList from "./ExpensesList";
 import AddInvoiceModal from "./AddInvoiceModal";
 import AddExpenseModal from "./AddExpenseModal";
-import PurchasesList from "./PurchasesList";
+
 import AddPurchaseModal from "./AddpurchaseModal";
 
 export default function FinancePage({ data, setData }) {
