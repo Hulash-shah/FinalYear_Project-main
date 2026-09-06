@@ -4,6 +4,8 @@ import { GlobalStyle } from '../../theme/globalStyles';
 import Icon from '../../components/ui/Icon';
 import Input from '../../components/ui/Input';
 import Select from '../../components/ui/Select';
+import businessImage from "../../../images/business.jpg";
+
 
 export default function RegisterPage({  onNavigate }) {
   const [step, setStep] = useState(1);
@@ -89,7 +91,7 @@ export default function RegisterPage({  onNavigate }) {
         rgba(8,12,20,0.75),
         rgba(8,12,20,0.75)
       ),
-      url("/images/business.jpg")
+      url(${businessImage})
     `,
 
     backgroundSize: "cover",
