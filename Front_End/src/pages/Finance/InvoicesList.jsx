@@ -26,7 +26,7 @@ export default function InvoicesList({ invoices, onEdit, onDelete }) {
         <table style={{ width: "100%", borderCollapse: "collapse", color: C.text, fontSize: "0.85rem", textAlign: "left" }}>
           <thead>
             <tr style={{ borderBottom: `1px solid ${C.cardBorder}`, color: C.textMuted }}>
-              <th style={{ padding: "12px 10px", fontWeight: 500 }}>ID / Client</th>
+              <th style={{ padding: "12px 10px", fontWeight: 500 }}>ID / Client ID</th>
               <th style={{ padding: "12px 10px", fontWeight: 500 }}>Date & Due</th>
               <th style={{ padding: "12px 10px", fontWeight: 500 }}>Amt & Status</th>
               <th style={{ padding: "12px 10px", fontWeight: 500 }}></th>
