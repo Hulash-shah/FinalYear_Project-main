@@ -3,6 +3,7 @@ import { C } from '../../theme/colors';
 import { GlobalStyle } from '../../theme/globalStyles';
 import Icon from '../../components/ui/Icon';
 import Input from '../../components/ui/Input';
+import signinImage from "../../../images/signin.jpeg";
 
 export default function LoginPage({ onLogin, onNavigate, isDark, toggleTheme }) {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -46,7 +47,7 @@ export default function LoginPage({ onLogin, onNavigate, isDark, toggleTheme }) 
         rgba(8,12,20,0.75),
         rgba(8,12,20,0.75)
       ),
-      url("/images/signin.jpeg")
+      url(${signinImage})
     `,
 
     backgroundSize: "cover",
