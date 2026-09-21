@@ -1,4 +1,4 @@
-const BASE = 'https://finalyear-project-main.onrender.com/';
+const BASE = 'https://finalyear-project-main.onrender.com/api';
 
 function getToken() {
   return localStorage.getItem("token");
