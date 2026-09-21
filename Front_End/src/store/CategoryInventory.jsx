@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import InventoryTable from './InventoryTable';
 import { C } from '../theme/colors';
 
-const API_BASE = 'http://localhost:5000/api/products';
+const API_BASE = 'https://finalyear-project-main.onrender.com/api';
 
 const CATEGORY_EXTRA_FIELDS = {
   Shoes: [],

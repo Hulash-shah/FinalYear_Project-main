@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { C } from '../theme/colors';
 import CategoryInventory from './CategoryInventory';
 
-const API_BASE = 'http://localhost:5000/api/products';
+const API_BASE = 'https://finalyear-project-main.onrender.com/api';
 
 function getAuthHeaders() {
   const token = localStorage.getItem('token');
