@@ -62,7 +62,7 @@ export default function StoreInventory() {
     setDeleteError('');
     setDeletingCategory(cat);
     try {
-      const res = await fetch(`${API_BASE}?category=${encodeURIComponent(cat)}`, {
+      const res = await fetch(`${API_BASE}/products?category=${encodeURIComponent(cat)}`, {
         headers: getAuthHeaders(),
       });
       const data = await res.json();
