@@ -10,7 +10,7 @@ const EMPTY_DATA = {
   inventory: [],
 };
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://finalyear-project-main.onrender.com/";
 
 function authHeaders() {
   return {
